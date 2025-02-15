@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load cart_extras %}  <!-- Load the custom filter -->
+
+{% block content %}
+<h2>Shopping Cart</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart.cart_items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>${{ item.product.price }}</td>
+                <td>
+                    <form method="post" action="{% url 'update_cart' item_id=item.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm d-inline-block w-50">
+                        <button type="submit" class="btn btn-primary btn-sm d-inline-block"><i class="fas fa-sync-alt"></i> Update</button>
+                    </form>
+                </td>
+                <td>${{ item.product.price|mul:item.quantity }}</td>
+                <td>
+                    <a href="{% url 'update_cart' item_id=item.id %}?quantity=0" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Remove</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"><strong>Total:</strong></td>
+            <td>${{ cart.total_price }}</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<a href="{% url 'order_summary' %}" class="btn btn-primary"><i class="fas fa-check-circle"></i> Proceed to Checkout</a>
+{% endblock %}

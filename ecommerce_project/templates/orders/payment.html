@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Payment</h2>
+<p>Shipping Address: {{ shipping_address.first_name }} {{ shipping_address.last_name }}</p>
+<p>{{ shipping_address.address }}</p>
+<p>{{ shipping_address.city }}, {{ shipping_address.postal_code }}, {{ shipping_address.country }}</p>
+<p><strong>Total:</strong> ${{ cart.total_price }}</p>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <!-- Payment form fields go here -->
+    <div class="form-group">
+        <label for="id_card_number">Card Number:</label>
+        <input type="text" class="form-control" id="id_card_number" name="card_number" required>
+    </div>
+    <div class="form-group">
+        <label for="id_expiry_date">Expiry Date:</label>
+        <input type="text" class="form-control" id="id_expiry_date" name="expiry_date" placeholder="MM/YY" required>
+    </div>
+    <div class="form-group">
+        <label for="id_cvv">CVV:</label>
+        <input type="text" class="form-control" id="id_cvv" name="cvv" required>
+    </div>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-credit-card"></i> Pay Now</button>
+</form>
+{% endblock %}

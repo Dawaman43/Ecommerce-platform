@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Order Confirmation</h2>
+<p>Your order has been confirmed. Order ID: {{ order.id }}</p>
+<p>Total: ${{ order.total_price }}</p>
+<a href="{% url 'order_history' %}"><i class="fas fa-history"></i> View Order History</a>
+{% endblock %}

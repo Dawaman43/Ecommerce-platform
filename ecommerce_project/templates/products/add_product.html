@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>Add Product</h2>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_name">Name:</label>
+                        <input type="text" class="form-control" id="id_name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_description">Description:</label>
+                        <textarea class="form-control" id="id_description" name="description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_price">Price:</label>
+                        <input type="number" step="0.01" class="form-control" id="id_price" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_stock">Stock:</label>
+                        <input type="number" class="form-control" id="id_stock" name="stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_categories">Categories:</label>
+                        <select class="form-control" id="id_categories" name="categories" multiple required>
+                            {% for category in form.categories.field.queryset %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_image">Image:</label>
+                        <input type="file" class="form-control-file" id="id_image" name="image" onchange="previewImage(event)">
+                        <img id="preview" src="#" alt="Preview" style="display:none; max-width: 100%; margin-top: 10px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('preview');
+        output.src = reader.result;
+        output.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+{% endblock %}

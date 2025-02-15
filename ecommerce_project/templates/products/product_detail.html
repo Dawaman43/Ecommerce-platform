@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p><strong>Stock:</strong> {{ product.stock }} units</p>
+        <p><strong>Seller:</strong> {{ product.seller.username }}</p>
+        <p><strong>Categories:</strong> 
+            {% for category in product.categories.all %}
+                {{ category.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <i class="fas fa-cart-plus"></i> <a href="{% url 'add_to_cart' product_id=product.id %}" class="btn btn-success">Add to Cart</a>
+        <h3>Reviews</h3>
+        <ul>
+            {% for review in product.product_reviews.all %}
+                <li>
+                    <p><strong>Rating:</strong> {{ review.rating }}</p>
+                    <p><strong>Comment:</strong> {{ review.comment }}</p>
+                    <p><strong>By:</strong> {{ review.user.username }} on {{ review.created_at }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <i class="fas fa-pen"></i> <a href="{% url 'add_review' product_id=product.id %}" class="btn btn-primary">Add Review</a>
+    </div>
+</div>
+{% endblock %}

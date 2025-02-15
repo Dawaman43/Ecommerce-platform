@@ -1,0 +1,12 @@
+{% load static %}
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add Review for {{ product.name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"><i class="fas fa-paper-plane"></i> Submit Review</button>
+</form>
+<a href="{% url 'product_detail' id=product.id %}"><i class="fas fa-arrow-left"></i> Back to Product</a>
+{% endblock %}

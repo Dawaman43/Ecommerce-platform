@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load cart_extras %}
+{% block content %}
+<h2>Order Summary</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart.cart_items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>${{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.product.price|mul:item.quantity }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"><strong>Total:</strong></td>
+            <td>${{ cart.total_price }}</td>
+        </tr>
+    </tfoot>
+</table>
+<a href="{% url 'shipping_address' %}" class="btn btn-primary"><i class="fas fa-truck"></i> Proceed to Shipping Address</a>
+{% endblock %}

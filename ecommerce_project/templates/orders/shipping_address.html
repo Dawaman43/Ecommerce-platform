@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>Shipping Address</h2>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_first_name">First Name:</label>
+                        <input type="text" class="form-control" id="id_first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_last_name">Last Name:</label>
+                        <input type="text" class="form-control" id="id_last_name" name="last_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        <textarea class="form-control" id="id_address" name="address" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        <input type="text" class="form-control" id="id_city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_postal_code">Postal Code:</label>
+                        <input type="text" class="form-control" id="id_postal_code" name="postal_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        <input type="text" class="form-control" id="id_country" name="country" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-check-circle"></i> Continue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
