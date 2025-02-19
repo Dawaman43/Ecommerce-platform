@@ -64,6 +64,13 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = [
+    "localhost", 
+    "127.0.0.1", 
+    "ecommerce-platform-w3cq.onrender.com"
+]
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

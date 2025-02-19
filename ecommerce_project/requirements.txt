@@ -27,6 +27,7 @@ Faker==33.0.0
 filelock==3.16.1
 frozenlist==1.5.0
 git-filter-repo==2.47.0
+gunicorn==23.0.0
 idna==3.10
 loguru==0.7.2
 maturin==1.7.4
