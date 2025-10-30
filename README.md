@@ -5,7 +5,7 @@
 
 Welcome to the E-commerce Project! This is a fully functional e-commerce platform built using Django, a high-level Python web framework. The project allows users to register, log in, browse products, add products to their cart, proceed to checkout, and manage their orders. Admins can manage products, stock, categories, and reviews.
 
-## Feature
+## Features
 
 - **User Authentication & Authorization**
   - Registration: Users can create accounts using an email/password.
